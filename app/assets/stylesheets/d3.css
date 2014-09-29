@@ -1,0 +1,11 @@
+/* copied from http://bost.ocks.org/mike/bar/2/ */
+
+.chart rect {
+  fill: steelblue;
+}
+
+.chart text {
+  fill: white;
+  font: 10px sans-serif;
+  text-anchor: end;
+}
