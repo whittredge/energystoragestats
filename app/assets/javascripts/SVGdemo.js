@@ -1,6 +1,8 @@
 //Copied from http://www.recursion.org/d3-for-mere-mortals/
 
-var rectDemo = d3.select("#rectDemo").
+console.log(d3.version);
+
+var rectDemo = d3.select("svg.chart").
   append("svg:svg").
   attr("width", 400).
   attr("height", 300);

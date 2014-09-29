@@ -8,4 +8,24 @@
 	<%= link_to "Sign up now!", '#', class: "btn btn-lg btn-primary" %>
 </div>
 
+
 <%= link_to image_tag("rails.png", alt: "Rails logo"), 'http://rubyonrails.org/' %>
+
+
+<div class="chart"></div>
+
+<% content_for :javascript do %>
+  <script type='text/javascript'>
+    var rectDemo = d3.select(".chart").
+  		append("svg").
+  		attr("width", 400).
+  		attr("height", 300);
+
+	rectDemo.append("rect").
+  		attr("x", 100).
+  		attr("y", 100).
+  		attr("height", 100).
+  		attr("width", 200);
+  </script>
+
+<% end %>
