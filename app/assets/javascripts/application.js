@@ -14,4 +14,5 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require d3
+//= require nvd3-rails
 //= require_tree .

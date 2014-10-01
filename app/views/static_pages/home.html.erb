@@ -195,3 +195,87 @@ d3.tsv("assets/scatterdata.tsv", function(error, data) {
   </script>
 
 <% end %>
+
+
+<body class='with-3d-shadow with-transitions'>
+
+<div id="offsetDiv">
+  <div id="test1" class="chartWrap">
+    <svg></svg>
+  </div>
+</div>
+
+<% content_for :javascript do %>
+
+  <script type='text/javascript'>
+
+<script src="../lib/d3.v3.js"></script>
+<script src="../lib/fisheye.js"></script>
+<script src="../nv.d3.js"></script>
+<script src="../src/tooltip.js"></script>
+<script src="../src/utils.js"></script>
+<script src="../src/models/legend.js"></script>
+<script src="../src/models/axis.js"></script>
+<script src="../src/models/distribution.js"></script>
+<script src="../src/models/scatter.js"></script>
+<script src="../src/models/scatterPlusLineChart.js"></script>
+<script>
+
+
+
+//Format A
+var chart;
+nv.addGraph(function() {
+  chart = nv.models.scatterPlusLineChart()
+                .showDistX(true)
+                .showDistY(true)
+                .transitionDuration(300)
+                .color(d3.scale.category10().range());
+
+  chart.xAxis.tickFormat(d3.format('.02f'))
+  chart.yAxis.tickFormat(d3.format('.02f'))
+
+  d3.select('#test1 svg')
+      .datum(nv.log(randomData(4,40)))
+      .call(chart);
+
+  nv.utils.windowResize(chart.update);
+
+  chart.dispatch.on('stateChange', function(e) { nv.log('New State:', JSON.stringify(e)); });
+
+  return chart;
+});
+
+
+function randomData(groups, points) { //# groups,# points per group
+  var data = [],
+      shapes = ['circle', 'cross', 'triangle-up', 'triangle-down', 'diamond', 'square'],
+      random = d3.random.normal();
+
+  for (i = 0; i < groups; i++) {
+    data.push({
+      key: 'Group ' + i,
+      values: [],
+      slope: Math.random() - .01,
+      intercept: Math.random() - .5
+    });
+
+    for (j = 0; j < points; j++) {
+      data[i].values.push({
+        x: random(), 
+        y: random(), 
+        size: Math.random(), 
+        shape: shapes[j % 6]
+      });
+    }
+  }
+
+  return data;
+}
+
+
+
+</script>
+
+<% end %>
+</body>
