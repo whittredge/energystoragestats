@@ -1,12 +1,14 @@
 <div class="center jumbotron">
-	<h1>Energy Storage Stats</h1>
+	<!-- <h1>Energy Storage Stats</h1> -->
 
 	<h2>
-		A demo to expand information like this: <a href="http://en.wikipedia.org/wiki/Ragone_chart">Ragone chart</a>.
+		Welcome to Energy Storage Stats, a demo to expand information like this: <a href="http://en.wikipedia.org/wiki/Ragone_chart">Ragone chart</a>.
 	</h2>
+
 <!--
-	<%= link_to "Sign up now!", '#', class: "btn btn-lg btn-primary" %>
+ <%= link_to image_tag("ESS1.1_EAEAEAbkgd.png", alt: "ESS1 logo"), 'http://energystoragestats.com/' %>
 -->
+
 </div>
 
 
@@ -36,8 +38,16 @@ nv.addGraph(function() {
                 .transitionDuration(300)
                 .color(d3.scale.category10().range());
 
+
+  chart.xScale(d3.scale.log());  
+  chart.xAxis.tickValues([1, 10, 100]);
   chart.xAxis.tickFormat(d3.format('.02f'))
+  chart.forceX([1, 100]);
+
+  chart.yScale(d3.scale.log());  
+  chart.yAxis.tickValues([1, 10, 100]);
   chart.yAxis.tickFormat(d3.format('.02f'))
+  chart.forceY([1, 100]);
 
   d3.select('#test1 svg')
       .datum(nv.log(randomData(4,40)))
@@ -54,7 +64,7 @@ nv.addGraph(function() {
 function randomData(groups, points) { //# groups,# points per group
   var data = [],
       shapes = ['circle', 'cross', 'triangle-up', 'triangle-down', 'diamond', 'square'],
-      random = d3.random.normal();
+      random = d3.random.logNormal();
 
   for (i = 0; i < groups; i++) {
     data.push({
@@ -83,3 +93,8 @@ function randomData(groups, points) { //# groups,# points per group
 
 <% end %>
 </body>
+
+
+
+
+

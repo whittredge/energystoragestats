@@ -22,7 +22,8 @@ div {
 
 
 #test1 {
-  margin: 0;
+  width:  809px;
+  margin: 0 auto;
 }
 
 #test1 svg {

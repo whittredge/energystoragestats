@@ -1,0 +1,23 @@
+<% provide(:title, 'examples') %>
+<h1>D3.js examples</h1>
+<p>
+  Here are D3.js demos:
+</p>
+
+<div class="chart">
+</div>
+
+<script type='text/javascript'>
+var demo = d3.select(".chart").
+	append("svg:svg").
+	attr("width", 400).
+	attr("height", 300);
+
+demo.append("svg:rect")
+	attr("x", 100).
+	attr("y", 100).
+	attr("height", 100).
+	attr("width", 200);
+
+
+</script>
