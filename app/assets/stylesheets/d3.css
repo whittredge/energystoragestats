@@ -1,4 +1,4 @@
-/* copied from http://bost.ocks.org/mike/bar/2/ */
+ copied from http://bost.ocks.org/mike/bar/2/ */
 
 .chart rect {
   fill: steelblue;
@@ -19,4 +19,36 @@
 
 .dot {
   stroke: #000;
+}
+
+/* http://codepen.io/rodericksandoval/pen/xkEhn */
+/*.tooltip {*/
+    /*pointer-events:none; let mouse events pass through*/
+    /*opacity:0;*/
+    /*transition: opacity 0.3s;*/
+    /*text-shadow:1px 1px 0px gray;*/
+/*}*/
+
+/*div.tooltip {*/
+    /*background: lightblue;*/
+    /*border:solid gray;*/
+    /*position: absolute;*/
+    /*max-width: 8em;*/
+    /*text-align:center;*/
+/*}*/
+/* */
+
+/*svg .tooltip { opacity: 1; }*/
+
+div.tooltip {	
+    position: absolute;			
+    text-align: center;			
+    width: 90px;					
+    height: 28px;					
+    padding: 2px;				
+    font: 12px sans-serif;		
+    background: lightsteelblue;	
+    border: 0px;		
+    border-radius: 8px;			
+    pointer-events: none;			
 }

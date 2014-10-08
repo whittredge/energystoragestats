@@ -35,6 +35,10 @@ var yAxis = d3.svg.axis()
     .scale(y)
     .orient("left");
 
+var tooltip = d3.select(".scatter").append("div") 
+    .attr("class", "tooltip")       
+    .style("opacity", 0);
+
 var svg = d3.select("div.scatter").append("svg")
     .attr("width", width + margin.left + margin.right)
     .attr("height", height + margin.top + margin.bottom)
@@ -46,15 +50,6 @@ d3.tsv("assets/sampleESSdata.tsv", function(error, data) {
     d.energyDensity = +d.energyDensity;
     d.powerDensity = +d.powerDensity;
   });
-//Test domains slightly larger than data:
-// // debugger;
-// var xDomainProxy = d3.extent(data, function(d) { return d.powerDensity; });
-// xDomainProxy = 1.1*xDomainProxy;
-// var yDomainProxy = d3.extent(data, function(d) { return d.energyDensity; });
-// yDomainProxy = 1.1*yDomainProxy;
-// x.domain(xDomainProxy).nice();
-// y.domain(yDomainProxy).nice();
-
 
   x.domain(d3.extent(data, function(d) { return d.powerDensity; })).nice();
   y.domain(d3.extent(data, function(d) { return d.energyDensity; })).nice();
@@ -68,7 +63,7 @@ d3.tsv("assets/sampleESSdata.tsv", function(error, data) {
       .attr("x", width)
       .attr("y", -6)
       .style("text-anchor", "end")
-      .text("Sepal Width (cm)");
+      .text("Energy Density (Wh/kg) [values are arbitrary]");
 
   svg.append("g")
       .attr("class", "y axis")
@@ -79,7 +74,7 @@ d3.tsv("assets/sampleESSdata.tsv", function(error, data) {
       .attr("y", 6)
       .attr("dy", ".71em")
       .style("text-anchor", "end")
-      .text("Sepal Length (cm)")
+      .text("Power Density (W/kg) [values are arbitrary]");
 
   svg.selectAll(".dot")
       .data(data)
@@ -88,7 +83,22 @@ d3.tsv("assets/sampleESSdata.tsv", function(error, data) {
       .attr("r", 3.5)
       .attr("cx", function(d) { return x(d.powerDensity); })
       .attr("cy", function(d) { return y(d.energyDensity); })
-      .style("fill", function(d) { return color(d.device); });
+      .style("fill", function(d) { return color(d.device); })
+      .on("mouseover", function(d) {    
+          tooltip.transition()    
+                .duration(200)    
+                .style("opacity", .9);    
+          tooltip.html(d.device + "<br/>"  + d.device)  
+                .style("left", (d3.event.pageX + 2) + "px")   
+                .style("top", (d3.event.pageY - 30) + "px");
+        })          
+      .on("mouseout", function(d) {   
+            tooltip.transition()    
+                .duration(500)    
+                .style("opacity", 0); 
+        })
+    .append("svg:title")
+      .text(function(d, i) { return d.device; });
 
   var legend = svg.selectAll(".legend")
       .data(color.domain())
