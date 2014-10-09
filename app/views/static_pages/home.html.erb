@@ -1,17 +1,17 @@
 <div class="center jumbotron">
-	<!-- <h1>Energy Storage Stats</h1> -->
+	<h3>Energy Storage Stats</h3>
 
 	<h2>
-		Welcome to Energy Storage Stats, a demo to expand information like this: <a href="http://en.wikipedia.org/wiki/Ragone_chart">Ragone chart</a>.
+		Energy Storage Stats is a resource in alpha-release to expand information like this: <a href="http://en.wikipedia.org/wiki/Ragone_chart">Ragone chart</a>.
 	</h2>
 
 </div>
 
+
+
 <div class="scatter"></div>
 
 <% content_for :javascript do %>
-
-
 
 <script type='text/javascript'>
 
@@ -118,6 +118,9 @@ d3.tsv("assets/sampleESSdata.tsv", function(error, data) {
       .attr("dy", ".35em")
       .style("text-anchor", "end")
       .text(function(d) { return d; });
+
+});
+
 </script>
 
 <% end %>
