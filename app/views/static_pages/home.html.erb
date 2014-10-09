@@ -5,94 +5,129 @@
 		Welcome to Energy Storage Stats, a demo to expand information like this: <a href="http://en.wikipedia.org/wiki/Ragone_chart">Ragone chart</a>.
 	</h2>
 
-<!--
- <%= link_to image_tag("ESS1.1_EAEAEAbkgd.png", alt: "ESS1 logo"), 'http://energystoragestats.com/' %>
--->
-
 </div>
 
-
-</div>
-
-
-
-
-<body class='with-3d-shadow with-transitions'>
-
-<div id="offsetDiv">
-  <div id="test1" class="chartWrap">
-    <svg></svg>
-  </div>
-</div>
+<div class="scatter"></div>
 
 <% content_for :javascript do %>
 
-  <script type='text/javascript'>
-
-//Format A
-var chart;
-nv.addGraph(function() {
-  chart = nv.models.scatterPlusLineChart()
-                .showDistX(true)
-                .showDistY(true)
-                .transitionDuration(300)
-                .color(d3.scale.category10().range());
 
 
-  chart.xScale(d3.scale.log());  
-  chart.xAxis.tickValues([1, 10, 100]);
-  chart.xAxis.tickFormat(d3.format('.02f'))
-  chart.forceX([1, 100]);
+<script type='text/javascript'>
 
-  chart.yScale(d3.scale.log());  
-  chart.yAxis.tickValues([1, 10, 100]);
-  chart.yAxis.tickFormat(d3.format('.02f'))
-  chart.forceY([1, 100]);
+var margin = {top: 20, right: 20, bottom: 30, left: 40},
+    width = 960 - margin.left - margin.right,
+    height = 500 - margin.top - margin.bottom;
 
-  d3.select('#test1 svg')
-      .datum(nv.log(randomData(4,40)))
-      .call(chart);
+var x = d3.scale.log()
+    .range([0, width]);
 
-  nv.utils.windowResize(chart.update);
+var y = d3.scale.log()
+    .range([height, 0]);
 
-  chart.dispatch.on('stateChange', function(e) { nv.log('New State:', JSON.stringify(e)); });
+var color = d3.scale.category10();
 
-  return chart;
-});
+var xAxis = d3.svg.axis()
+    .scale(x)
+    .orient("bottom");
 
+var yAxis = d3.svg.axis()
+    .scale(y)
+    .orient("left");
 
-function randomData(groups, points) { //# groups,# points per group
-  var data = [],
-      shapes = ['circle', 'cross', 'triangle-up', 'triangle-down', 'diamond', 'square'],
-      random = d3.random.logNormal();
+var tooltip = d3.select(".scatter").append("div") 
+    .attr("class", "tooltip")       
+    .style("opacity", 0);
 
-  for (i = 0; i < groups; i++) {
-    data.push({
-      key: 'Group ' + i,
-      values: [],
-      slope: Math.random() - .01,
-      intercept: Math.random() - .5
-    });
+var svg = d3.select("div.scatter").append("svg")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+  .append("g")
+    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-    for (j = 0; j < points; j++) {
-      data[i].values.push({
-        x: random(), 
-        y: random(), 
-        size: Math.random(), 
-        shape: shapes[j % 6]
-      });
-    }
-  }
+d3.tsv("assets/sampleESSdata.tsv", function(error, data) {
+  data.forEach(function(d) {
+    d.energyDensity = +d.energyDensity;
+    d.powerDensity = +d.powerDensity;
+  });
 
-  return data;
-}
+  x.domain(d3.extent(data, function(d) { return d.powerDensity; })).nice();
+  y.domain(d3.extent(data, function(d) { return d.energyDensity; })).nice();
 
+  svg.append("g")
+      .attr("class", "x axis")
+      .attr("transform", "translate(0," + height + ")")
+      .call(xAxis)
+    .append("text")
+      .attr("class", "label")
+      .attr("x", width)
+      .attr("y", -6)
+      .style("text-anchor", "end")
+      .text("Energy Density (Wh/kg) [values are arbitrary]");
 
+  svg.append("g")
+      .attr("class", "y axis")
+      .call(yAxis)
+    .append("text")
+      .attr("class", "label")
+      .attr("transform", "rotate(-90)")
+      .attr("y", 6)
+      .attr("dy", ".71em")
+      .style("text-anchor", "end")
+      .text("Power Density (W/kg) [values are arbitrary]");
 
+  svg.selectAll(".dot")
+      .data(data)
+    .enter().append("circle")
+      .attr("class", "dot")
+      .attr("r", 3.5)
+      .attr("cx", function(d) { return x(d.powerDensity); })
+      .attr("cy", function(d) { return y(d.energyDensity); })
+      .style("fill", function(d) { return color(d.device); })
+      .on("mouseover", function(d) {    
+          tooltip.transition()    
+                .duration(200)    
+                .style("opacity", .9);    
+          tooltip.html(d.device + "<br/>"  + d.device)  
+                .style("left", (d3.event.pageX + 2) + "px")   
+                .style("top", (d3.event.pageY - 30) + "px");
+        })          
+      .on("mouseout", function(d) {   
+            tooltip.transition()    
+                .duration(500)    
+                .style("opacity", 0); 
+        })
+    .append("svg:title")
+      .text(function(d, i) { return d.device; });
+
+  var legend = svg.selectAll(".legend")
+      .data(color.domain())
+    .enter().append("g")
+      .attr("class", "legend")
+      .attr("transform", function(d, i) { return "translate(0," + i * 20 + ")"; });
+
+  legend.append("rect")
+      .attr("x", width - 18)
+      .attr("width", 18)
+      .attr("height", 18)
+      .style("fill", color);
+
+  legend.append("text")
+      .attr("x", width - 24)
+      .attr("y", 9)
+      .attr("dy", ".35em")
+      .style("text-anchor", "end")
+      .text(function(d) { return d; });
 </script>
 
 <% end %>
-</body>
+
+
+
+
+
+
+
 
 
 

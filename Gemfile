@@ -27,4 +27,3 @@ group :production do
 end
 
 gem 'd3js-rails',	'3.1.6'
-gem 'nvd3-rails', :git => "git://github.com/adeven/nvd3-rails.git", :submodules => true
