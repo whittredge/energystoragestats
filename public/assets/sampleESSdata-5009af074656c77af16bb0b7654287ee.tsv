@@ -1,0 +1,5 @@
+energyDensity	powerDensity	device
+100	50	battery
+1000	10	fuel cell
+0.1	5000	capacitor
+5	3000	supercapacitor
