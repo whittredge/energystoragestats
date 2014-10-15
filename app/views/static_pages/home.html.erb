@@ -7,15 +7,15 @@
 
 </div>
 
-<div class="scatter"></div>
+<div class="scatter" style="text-align:center;"></div>
 
 <% content_for :javascript do %>
-
+<script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
 <script type='text/javascript'>
 
 var margin = {top: 20, right: 20, bottom: 30, left: 40},
-    width = 960 - margin.left - margin.right,
-    height = 500 - margin.top - margin.bottom;
+    width = 800 - margin.left - margin.right,
+    height = 510 - margin.top - margin.bottom;
 
 var x = d3.scale.log()
     .range([0, width]);
@@ -37,11 +37,24 @@ var tooltip = d3.select(".scatter").append("div")
     .attr("class", "tooltip")       
     .style("opacity", 0);
 
+// http://bl.ocks.org/Caged/6476579 //
+var tip = d3.tip()
+  .attr('class', 'd3-tip')
+  .offset([-10, 0])
+  .html(function(d) {
+    return d.energyDensity + ", " +d.powerDensity + "<br> </br>" + d.citationShort + "<br> </br>" + d.device;
+  })
+  //
+
 var svg = d3.select("div.scatter").append("svg")
     .attr("width", width + margin.left + margin.right)
     .attr("height", height + margin.top + margin.bottom)
   .append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+// http://bl.ocks.org/Caged/6476579 //
+svg.call(tip);
+//
 
 d3.tsv("assets/sampleESSdata.tsv", function(error, data) {
   data.forEach(function(d) {
@@ -78,22 +91,20 @@ d3.tsv("assets/sampleESSdata.tsv", function(error, data) {
       .data(data)
     .enter().append("circle")
       .attr("class", "dot")
-      .attr("r", 3.5)
+      .attr("r", 5)
       .attr("cx", function(d) { return x(d.powerDensity); })
       .attr("cy", function(d) { return y(d.energyDensity); })
       .style("fill", function(d) { return color(d.device); })
-      .on("mouseover", function(d) {    
-          tooltip.transition()    
-                .duration(200)    
-                .style("opacity", .9);    
-          tooltip.html(d.device + "<br/>"  + d.device)  
-                .style("left", (d3.event.pageX + 2) + "px")   
-                .style("top", (d3.event.pageY - 30) + "px");
-        })          
-      .on("mouseout", function(d) {   
-            tooltip.transition()    
-                .duration(500)    
-                .style("opacity", 0); 
+      // http://bl.ocks.org/Caged/6476579 //
+      .on('mouseover', tip.show)
+      .on('mouseout', tip.hide)
+      //
+      .on('click', function(d,i) { var text = d3.select("div.scatter").append("div").append("text")
+        .data(data)
+        .style("fill", "black")
+        .attr("x", 0)
+        .attr("y", 0)
+        .text(function() { return d.citationLong; })
         })
     .append("svg:title")
       .text(function(d, i) { return d.device; });
@@ -119,6 +130,15 @@ d3.tsv("assets/sampleESSdata.tsv", function(error, data) {
 
 });
 
+var instructions = d3.select("div.scatter")
+    .append("div")
+    .append("text")
+        // .append("svg")
+    .attr("x", 100)
+    .attr("y", 100)
+
+    // .style("fill", "black")
+    .text("Click data points to add their data values and citations here.");
 </script>
 
 <% end %>
