@@ -1,0 +1,5 @@
+energyDensity	powerDensity	device	citationShort	citationLong
+100	50	battery	Example, et al	Example, John Q. Minor Journal, 2009.
+1000	10	fuel cell	Example, et al	Example, John X. Major Journal, 2010.
+0.1	5000	capacitor	Example, et al	Example, John Y. Small Company, 2011.
+5	3000	supercapacitor	Example, et al	Example, John Z. Big Company, 2012.
