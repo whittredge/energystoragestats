@@ -10,7 +10,7 @@
 <div class="scatter" style="text-align:center;"></div>
 
 <% content_for :javascript do %>
-<script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
+<!-- <script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script> -->
 <script type='text/javascript'>
 
 var margin = {top: 20, right: 20, bottom: 30, left: 40},
@@ -33,17 +33,17 @@ var yAxis = d3.svg.axis()
     .scale(y)
     .orient("left");
 
-var tooltip = d3.select(".scatter").append("div") 
-    .attr("class", "tooltip")       
-    .style("opacity", 0);
+// var tooltip = d3.select(".scatter").append("div") 
+//     .attr("class", "tooltip")       
+//     .style("opacity", 0);
 
 // http://bl.ocks.org/Caged/6476579 //
-var tip = d3.tip()
-  .attr('class', 'd3-tip')
-  .offset([-10, 0])
-  .html(function(d) {
-    return d.energyDensity + ", " +d.powerDensity + "<br> </br>" + d.citationShort + "<br> </br>" + d.device;
-  })
+// var tip = d3.tip()
+//   .attr('class', 'd3-tip')
+//   .offset([-10, 0])
+//   .html(function(d) {
+//     return d.energyDensity + ", " +d.powerDensity + "<br> </br>" + d.citationShort + "<br> </br>" + d.device;
+//   })
   //
 
 var svg = d3.select("div.scatter").append("svg")
@@ -53,7 +53,7 @@ var svg = d3.select("div.scatter").append("svg")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
 // http://bl.ocks.org/Caged/6476579 //
-svg.call(tip);
+// svg.call(tip);
 //
 
 d3.tsv("assets/sampleESSdata.tsv", function(error, data) {
@@ -96,8 +96,8 @@ d3.tsv("assets/sampleESSdata.tsv", function(error, data) {
       .attr("cy", function(d) { return y(d.energyDensity); })
       .style("fill", function(d) { return color(d.device); })
       // http://bl.ocks.org/Caged/6476579 //
-      .on('mouseover', tip.show)
-      .on('mouseout', tip.hide)
+      // .on('mouseover', tip.show)
+      // .on('mouseout', tip.hide)
       //
       .on('click', function(d,i) { var text = d3.select("div.scatter").append("div").append("text")
         .data(data)
