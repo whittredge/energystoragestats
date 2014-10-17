@@ -42,7 +42,7 @@ var tip = d3.tip()
   .attr('class', 'd3-tip')
   .offset([-10, 0])
   .html(function(d) {
-    return d.energyDensity + ", " +d.powerDensity + "<br> </br>" + d.citationShort + "<br> </br>" + d.device;
+    return d.powerDensity + ", " +d.energyDensity + "<br> </br>" + d.citationShort + "<br> </br>" + d.device;
   })
   //
 
