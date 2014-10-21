@@ -7,21 +7,13 @@
 
 </div>
 
-<!-- <div class="col-md-8"> -->
 <div class="scatter" style="text-align:center;"></div>
-<!-- </div> -->
-
-<!-- <div class="col-md-4"> -->
-  <!-- <p> -->
-    <!-- Random column. -->
-  <!-- </p> -->
-<!-- </div> -->
 
 <% content_for :javascript do %>
 <script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
 <script type='text/javascript'>
 
-var margin = {top: 20, right: 20, bottom: 30, left: 40},
+var margin = {top: 20, right: 20, bottom: 60, left: 60},
     width = 800 - margin.left - margin.right,
     height = 510 - margin.top - margin.bottom;
 
@@ -50,7 +42,7 @@ var tip = d3.tip()
   .attr('class', 'd3-tip')
   .offset([-10, 0])
   .html(function(d) {
-    return "E = " + d.volPowerDen + " Wh/cm-3<br> </br>P = " +d.volEnergyDen + " W/cm-3<br> </br>" + d.citationShort + "<br> </br>" + d.deviceType;
+    return "E = " + d.volEnergyDen + " Wh/cm-3<br> </br>P = " +d.volPowerDen + " W/cm-3<br> </br>" + d.citationShort + "<br> </br>" + d.deviceType;
   })
   //
 
@@ -63,6 +55,12 @@ var svg = d3.select("div.scatter").append("svg")
 // http://bl.ocks.org/Caged/6476579 //
 svg.call(tip);
 //
+
+function powerOfTen(d) {
+  return d / Math.pow(10, Math.ceil(Math.log(d) / Math.LN10 - 1e-12)) === 1;
+}
+
+var s = d3.scale.log().domain([0.001, 10]).range([0.001, 10]);
 
 // d3.tsv("assets/sampleESSdata.tsv", function(error, data) {
 d3.tsv("assets/ESSdataV1.tsv", function(error, data) {  
@@ -77,24 +75,34 @@ d3.tsv("assets/ESSdataV1.tsv", function(error, data) {
   svg.append("g")
       .attr("class", "x axis")
       .attr("transform", "translate(0," + height + ")")
-      .call(xAxis)
+      .call(xAxis
+        .tickFormat(function (d) {
+          return s.tickFormat(4,d3.format(",g"))(d)
+        }))
     .append("text")
       .attr("class", "label")
       .attr("x", width)
-      .attr("y", -6)
+      .attr("y", 35)
       .style("text-anchor", "end")
-      .text("Volumetric Energy Density (Wh/cm-3)");
+      .text("Volumetric Power Density (W/cm3)");
+    // .selectAll(".tick text")
+    //   .text(null)
+    // .filter(powerOfTen)
+    //   .text(d);
 
   svg.append("g")
       .attr("class", "y axis")
-      .call(yAxis)
+      .call(yAxis
+        .tickFormat(function (d) {
+          return s.tickFormat(4,d3.format(",g"))(d)
+        }))
     .append("text")
       .attr("class", "label")
       .attr("transform", "rotate(-90)")
-      .attr("y", 6)
+      .attr("y", -60)
       .attr("dy", ".71em")
       .style("text-anchor", "end")
-      .text("Volumetric Power Density (W/cm-3)");
+      .text("Volumetric Energy Density (Wh/cm3)");
 
   svg.selectAll(".dot")
       .data(data)
