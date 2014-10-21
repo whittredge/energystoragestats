@@ -7,7 +7,15 @@
 
 </div>
 
+<!-- <div class="col-md-8"> -->
 <div class="scatter" style="text-align:center;"></div>
+<!-- </div> -->
+
+<!-- <div class="col-md-4"> -->
+  <!-- <p> -->
+    <!-- Random column. -->
+  <!-- </p> -->
+<!-- </div> -->
 
 <% content_for :javascript do %>
 <script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
@@ -42,7 +50,7 @@ var tip = d3.tip()
   .attr('class', 'd3-tip')
   .offset([-10, 0])
   .html(function(d) {
-    return d.powerDensity + ", " +d.energyDensity + "<br> </br>" + d.citationShort + "<br> </br>" + d.device;
+    return "E = " + d.volPowerDen + " Wh/cm-3<br> </br>P = " +d.volEnergyDen + " W/cm-3<br> </br>" + d.citationShort + "<br> </br>" + d.deviceType;
   })
   //
 
@@ -56,14 +64,15 @@ var svg = d3.select("div.scatter").append("svg")
 svg.call(tip);
 //
 
-d3.tsv("assets/sampleESSdata.tsv", function(error, data) {
+// d3.tsv("assets/sampleESSdata.tsv", function(error, data) {
+d3.tsv("assets/ESSdataV1.tsv", function(error, data) {  
   data.forEach(function(d) {
-    d.energyDensity = +d.energyDensity;
-    d.powerDensity = +d.powerDensity;
+    d.volEnergyDen = +d.volEnergyDen;
+    d.volPowerDen = +d.volPowerDen;
   });
 
-  x.domain(d3.extent(data, function(d) { return d.powerDensity; })).nice();
-  y.domain(d3.extent(data, function(d) { return d.energyDensity; })).nice();
+  x.domain(d3.extent(data, function(d) { return d.volPowerDen; })).nice();
+  y.domain(d3.extent(data, function(d) { return d.volEnergyDen; })).nice();
 
   svg.append("g")
       .attr("class", "x axis")
@@ -74,7 +83,7 @@ d3.tsv("assets/sampleESSdata.tsv", function(error, data) {
       .attr("x", width)
       .attr("y", -6)
       .style("text-anchor", "end")
-      .text("Energy Density (Wh/kg) [values are arbitrary]");
+      .text("Volumetric Energy Density (Wh/cm-3)");
 
   svg.append("g")
       .attr("class", "y axis")
@@ -85,16 +94,16 @@ d3.tsv("assets/sampleESSdata.tsv", function(error, data) {
       .attr("y", 6)
       .attr("dy", ".71em")
       .style("text-anchor", "end")
-      .text("Power Density (W/kg) [values are arbitrary]");
+      .text("Volumetric Power Density (W/cm-3)");
 
   svg.selectAll(".dot")
       .data(data)
     .enter().append("circle")
       .attr("class", "dot")
       .attr("r", 5)
-      .attr("cx", function(d) { return x(d.powerDensity); })
-      .attr("cy", function(d) { return y(d.energyDensity); })
-      .style("fill", function(d) { return color(d.device); })
+      .attr("cx", function(d) { return x(d.volPowerDen); })
+      .attr("cy", function(d) { return y(d.volEnergyDen); })
+      .style("fill", function(d) { return color(d.deviceType); })
       // http://bl.ocks.org/Caged/6476579 //
       .on('mouseover', tip.show)
       .on('mouseout', tip.hide)
@@ -107,7 +116,7 @@ d3.tsv("assets/sampleESSdata.tsv", function(error, data) {
         .text(function() { return d.citationLong; })
         })
     .append("svg:title")
-      .text(function(d, i) { return d.device; });
+      .text(function(d, i) { return d.deviceType; });
 
   var legend = svg.selectAll(".legend")
       .data(color.domain())
@@ -138,7 +147,7 @@ var instructions = d3.select("div.scatter")
     .attr("y", 100)
 
     // .style("fill", "black")
-    .text("Click data points to add their data values and citations here.");
+    .text("Click data points to add their citations here.");
 </script>
 
 <% end %>
