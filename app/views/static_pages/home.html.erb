@@ -1,10 +1,18 @@
 <div class="center jumbotron">
-	<h3>Energy Storage Stats</h3>
+	<h1>Energy Storage Stats</h1>
+  <div class="container">
+    <div class="col-md-6">
+    	<h2>
+    		Energy Storage Stats is a resource in alpha-release for energy storage researchers and technologists.
+    	</h2>
+    </div>
 
-	<h2>
-		Energy Storage Stats is a resource in alpha-release to expand information like this: <a href="http://en.wikipedia.org/wiki/Ragone_chart">Ragone chart</a>.
-	</h2>
-
+    <div class="col-md-6">
+      <h2>
+        Submit data on energy storage devices.
+      </h2>
+    </div>
+  </div>
 </div>
 
 <div class="scatter" style="text-align:center;"></div>
@@ -142,11 +150,12 @@ d3.tsv("assets/ESSdataV1.tsv", function(error, data) {
       .text(function(d) { return d; });
 
   svg.append("text")
-      .attr("x", (width))
-      .attr("y", 0 - (margin.top / 3))
-      .attr("text-anchor", "end")
-      .style("font-size", "30px")
-      .style("font-style", "italic")
+      .attr("x", 0)
+      .attr("y", 0 - (margin.top / 2))
+      .attr("text-anchor", "start")
+      .style("font-size", "2em")
+      .style("font-family", "Georgia")
+      // .style("font-style", "italic")
       // .style("text-decoration", "underline")
       .text("Volumetric Ragone Chart");
 

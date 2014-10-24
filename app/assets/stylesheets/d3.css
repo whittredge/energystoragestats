@@ -8,6 +8,15 @@
   text-anchor: end;
 }
 
+.label {
+  font: 12px Arial;
+  /*font-weight: bold;*/
+}
+
+.legend {
+  font: 12px Arial;
+}
+
 .axis path,
 .axis line {
   fill: none;
