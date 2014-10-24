@@ -14,7 +14,7 @@ html {
 
 body {
   padding-top: 60px;
-  background-color: #f7f7f7;
+  background-color: #f6f6f6;
 }
 
 section {
@@ -32,12 +32,18 @@ textarea {
   }
 }
 
+.jumbotron {
+  color: white;
+  border: 5px;
+  border-color: #a7d7f9;
+}
+
 
 /* typography */
 
 h1, h2, h3, h4, h5, h6 {
   line-height: 1;
-  color: #191919;
+  color: #252525;
 }
 
 h1 {
