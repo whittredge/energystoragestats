@@ -5,6 +5,6 @@ class SubmitController < ApplicationController
 	    email = params[:email]
 	    comments = params[:comments]
 	    SubmitMailer.submit_email(doi, link, email, comments).deliver
-	    redirect_to submit_path, notice: 'Data submitted'
+	    redirect_to root_path, notice: 'Data submitted'
 	end
 end

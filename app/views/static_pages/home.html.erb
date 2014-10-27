@@ -10,7 +10,7 @@
     </div>
     <div class="col-md-6">
       <h2>
-        Submit data on academic and industrial energy storage devices.
+        <%= link_to "Submit data", submit_path %> on academic and industrial energy storage devices.
       </h2>
     </div>
   </div>
@@ -182,15 +182,31 @@ var instructions = d3.select("div.scatter")
   <div class="container">
     <div class="col-md-6">
       <h2>
+        The goal of EnergyStorageStats is to collect and interactively display data on a broad range energy storage devices.  We started with a volumetric Ragone plot because energy and power densities are widely reported, and volume (as opposed to mass) dominates the density metric at the small and large ends of device sizes.
+
+        <br></br>
+
+        <br></br>
+
+        <br></br>
 
 
-
-        Steven Chu: "Energy storage is a big deal" (2010).
+        <i>Steven Chu: "Energy storage is a big deal" (2010).</i>
       </h2>
     </div>
     <div class="col-md-6">
       <h2>
-        Bill Nye: "If we could find a way to efficiently store electricity, we would change the world and make a much higher quality life for everybody" (2014).
+        We are actively collecting data for a gravimetric Ragone plot to be published soon.  Ultimately, we aim to link every published dimension of a device throughout customizable, interactive plots.  The best way to make sure your device is included here is to <%= link_to "submit data", submit_path %>.
+
+        <br></br>
+
+        <br></br>
+
+        <br></br>
+
+      
+
+        <i>Bill Nye: "If we could find a way to efficiently store electricity, we would change the world and make a much higher quality life for everybody" (2014).</i>
       </h2>
     </div>
   </div>
