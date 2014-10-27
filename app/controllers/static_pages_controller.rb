@@ -10,4 +10,7 @@ class StaticPagesController < ApplicationController
 
   def examples
   end
+
+  def submit
+  end
 end

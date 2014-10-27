@@ -1,0 +1,31 @@
+<% provide(:title, "Submit") %>
+
+<h1>Submit</h1>
+
+
+
+<%= form_tag do %>
+  <%= label_tag(:my_name, "My name is:") %>
+  <%= text_field_tag(:my_name) %>
+  <%= submit_tag("Process") %>
+  <%= text_field_tag ('rails') %>
+  <%= text_area_tag(:message, "Hi, nice site", size: "24x6") %>
+  <%= email_field(:user, :address) %>
+<% end %>
+
+
+<%= form_tag(submit_data_path) do %>
+   <div class="form-group">
+    <%= label_tag 'name', 'Name' %>
+    <%= text_field_tag 'name', nil, class: 'form-control', placeholder: 'Your Name' %>
+  </div>
+  <div class="form-group">
+   <%= label_tag 'email', 'Email' %>
+   <%= email_field_tag 'email', nil, class: 'form-control', placeholder: 'Your Email Address' %>
+  </div>
+  <div class="form-group">
+   <%= label_tag 'comments', 'Comments' %>
+   <%= text_area_tag 'comments', nil, class: 'form-control', rows: 4, placeholder: 'Comments...' %>
+  </div>
+   <%= submit_tag nil, class: 'btn btn-default btn-about pull-right' %>
+<% end %>

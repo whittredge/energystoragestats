@@ -30,4 +30,10 @@ class StaticPagesControllerTest < ActionController::TestCase
     assert_select "title", "examples | #{@base_title}"
   end
 
+  test "should get submit" do
+    get :submit
+    assert_response :success
+    assert_select "title", "Submit | #{@base_title}"
+  end
+
 end
