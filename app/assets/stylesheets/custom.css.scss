@@ -49,6 +49,7 @@ h1 {
 }
 
 h2 {
+  font-family: Arial;
   font-size: 1.2em;
   letter-spacing: -0.5px;
   /*margin-bottom: 30px;*/
@@ -97,16 +98,13 @@ p {
 #logo {
   float: left;
   margin-right: 0px;
-  font-size: 1.5em;
-  /*font-family: "Computer Modern";*/
+  font-size: 1.8em;
   font-family: Georgia;
   /*font-variant: small-caps;*/
   /*font-style: italic;*/
   color: white;
-  /*text-transform: uppercase;*/
   /*letter-spacing: -1px;*/
-  padding-top: 10px;
-  /*font-weight: bold;*/
+  padding-top: 8px;
   &:hover {
   	color: white;
   	text-decoration:none;

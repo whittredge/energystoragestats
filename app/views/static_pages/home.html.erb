@@ -1,15 +1,16 @@
 <div class="center jumbotron">
-	<h1>Energy Storage Stats</h1>
   <div class="container">
+    <div class="col-md-12">
+      <h1>Energy Storage Stats</h1>
+    </div>
     <div class="col-md-6">
     	<h2>
     		Energy Storage Stats is a resource in alpha-release for energy storage researchers and technologists.
     	</h2>
     </div>
-
     <div class="col-md-6">
       <h2>
-        Submit data on energy storage devices.
+        Submit data on academic and industrial energy storage devices.
       </h2>
     </div>
   </div>
@@ -21,8 +22,8 @@
 <script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
 <script type='text/javascript'>
 
-var margin = {top: 60, right: 20, bottom: 60, left: 60},
-    width = 800 - margin.left - margin.right,
+var margin = {top: 110, right: 80, bottom: 68, left: 120},
+    width = 900 - margin.left - margin.right,
     height = 510 - margin.top - margin.bottom;
 
 var x = d3.scale.log()
@@ -57,6 +58,8 @@ var tip = d3.tip()
 var svg = d3.select("div.scatter").append("svg")
     .attr("width", width + margin.left + margin.right)
     .attr("height", height + margin.top + margin.bottom)
+    .style("background", "white")
+    .style("outline", "thin solid #A7D7F9")
   .append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
@@ -64,7 +67,7 @@ var svg = d3.select("div.scatter").append("svg")
 svg.call(tip);
 //
 
-var s = d3.scale.log().domain([0.001, 10]).range([0.001, 10]);
+// var s = d3.scale.log().domain([0.001, 10]).range([0.001, 10]);
 
 // d3.tsv("assets/sampleESSdata.tsv", function(error, data) {
 d3.tsv("assets/ESSdataV1.tsv", function(error, data) {  
@@ -137,13 +140,13 @@ d3.tsv("assets/ESSdataV1.tsv", function(error, data) {
       .attr("transform", function(d, i) { return "translate(0," + i * 20 + ")"; });
 
   legend.append("rect")
-      .attr("x", width - 18)
+      .attr("x", width + margin.right - 36)
       .attr("width", 18)
       .attr("height", 18)
       .style("fill", color);
 
   legend.append("text")
-      .attr("x", width - 24)
+      .attr("x", width + margin.right - 42)
       .attr("y", 9)
       .attr("dy", ".35em")
       .style("text-anchor", "end")
@@ -152,6 +155,7 @@ d3.tsv("assets/ESSdataV1.tsv", function(error, data) {
   svg.append("text")
       .attr("x", 0)
       .attr("y", 0 - (margin.top / 2))
+      // .attr("dy", "0.8em")
       .attr("text-anchor", "start")
       .style("font-size", "2em")
       .style("font-family", "Georgia")
@@ -171,11 +175,27 @@ var instructions = d3.select("div.scatter")
     .text("Click data points to add their citations here.");
 </script>
 
+
+<div class="center jumbotron">
+  <div class="container">
+    <div class="col-md-6">
+      <h2>
+        
+
+
+        Steven Chu: "Energy storage is a big deal" (2010).
+      </h2>
+    </div>
+    <div class="col-md-6">
+      <h2>
+        Bill Nye: "If we could find a way to efficiently store electricity, we would change the world and make a much higher quality life for everybody" (2014).
+      </h2>
+    </div>
+  </div>
+</div>
+
+
 <% end %>
-
-
-
-
 
 
 
