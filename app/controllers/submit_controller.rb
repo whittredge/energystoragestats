@@ -1,9 +1,10 @@
 class SubmitController < ApplicationController
 	def submit_data
-	    name = params[:name]
+	    doi = params[:doi]
+	    link = params[:link]
 	    email = params[:email]
-	    body = params[:comments]
-	    SubmitMailer.submit_email(name, email, body).deliver
+	    comments = params[:comments]
+	    SubmitMailer.submit_email(doi, link, email, comments).deliver
 	    redirect_to submit_path, notice: 'Data submitted'
 	end
 end

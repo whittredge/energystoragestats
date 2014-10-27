@@ -5,7 +5,9 @@
         <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
     </head>
     <body>
-        <p>You have received the following email from <%= "#{ @name } (#{ @email }):" %></p>
-        <p><%= @body %></p>
+        <p>doi: <%= "#{ @doi }" %> </p>
+        <p>link: <%= @link %> </p>
+        <p>email: <%= @email %> </p>
+        <p>comments: <%= @comments %> </p>
     </body>
 </html>

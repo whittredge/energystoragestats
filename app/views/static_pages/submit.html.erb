@@ -2,19 +2,35 @@
 
 <h1>Submit</h1>
 
+<h2>
+  Thanks for contributing to EnergyStorageStats.  Use this form to submit academic or industrial data on devices of any type.
+</h2>
 
-<%= form_tag(submit_data_path) do %>
-   <div class="form-group">
-    <%= label_tag 'name', 'Name' %>
-    <%= text_field_tag 'name', nil, class: 'form-control', placeholder: 'Your Name' %>
+<div class="container">
+  <div class="col-md-3"></div>
+  <div class="col-md-6">
+    <%= form_tag(submit_data_path) do %>
+      <h2>Please submit either a DOI (of the form dx.doi.org/xyz...) or permanent link to a device publication.</h2>
+       <div class="form-group">
+        <%= label_tag 'doi', 'DOI' %>
+        <%= text_field_tag 'doi', nil, class: 'form-control', placeholder: 'dx.doi.org/xyz...' %>
+      </div>
+      <div class="form-group">
+       <%= label_tag 'link', 'Link' %>
+       <%= text_field_tag 'link', nil, class: 'form-control', placeholder: 'permanent link' %>
+      </div>
+      <h2>Optionally submit a contact email for notification when data is published on EnergyStorageStats.  We will never spam you, or associate your email address in any way with data published on this site.</h2>
+      <div class="form-group">
+       <%= label_tag 'email', 'Email' %>
+       <%= email_field_tag 'email', nil, class: 'form-control', placeholder: 'optional@email.com' %>
+      </div>
+      <h2>Please include any clarifying comments on the submission, including further data not included in the links above.  Consider also that many energy storage deivces are analyzed under numerous conditions, yielding different results for the same device.  If there is a specific set of conditions and results you feel best represents the submitted device, please describe those results.</h2>
+      <div class="form-group">
+       <%= label_tag 'comments', 'Comments' %>
+       <%= text_area_tag 'comments', nil, class: 'form-control', rows: 4, placeholder: 'Comments, performance conditions, additional data...' %>
+      </div>
+       <%= submit_tag nil, class: 'btn btn-default btn-about pull-right' %>
+    <% end %>
   </div>
-  <div class="form-group">
-   <%= label_tag 'email', 'Email' %>
-   <%= email_field_tag 'email', nil, class: 'form-control', placeholder: 'Your Email Address' %>
-  </div>
-  <div class="form-group">
-   <%= label_tag 'comments', 'Comments' %>
-   <%= text_area_tag 'comments', nil, class: 'form-control', rows: 4, placeholder: 'Comments...' %>
-  </div>
-   <%= submit_tag nil, class: 'btn btn-default btn-about pull-right' %>
-<% end %>
+  <div class="col-md-3"></div>
+</div>

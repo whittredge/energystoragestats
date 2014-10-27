@@ -1,10 +1,11 @@
 class SubmitMailer < ActionMailer::Base
     default to: 'whittredge@gmail.com'
 
-    def submit_email(name, email, body)
-        @name = name
+    def submit_email(doi, link, email, comments)
+        @doi = doi
+        @link = link
         @email = email
-        @body = body
+        @comments = comments
 
         mail(from: email, subject: 'Data submission')
     end
