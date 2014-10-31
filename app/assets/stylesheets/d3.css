@@ -62,3 +62,25 @@
   top: 100%;
   left: 0;
 }
+
+/*.scatter {
+  border-width: 1px;
+  border-style: solid;
+  -webkit-border-image: 
+    -webkit-gradient(linear, 0 100%, 0 0, from(#A7D7F9), to(rgba(0, 0, 0, 0))) 1 100%;
+  -webkit-border-image: 
+    -webkit-linear-gradient(bottom, #A7D7F9, rgba(0, 0, 0, 0)) 1 100%;
+  -moz-border-image:
+    -moz-linear-gradient(bottom, #A7D7F9, rgba(0, 0, 0, 0)) 1 100%;  
+  -o-border-image:
+    -o-linear-gradient(bottom, #A7D7F9, rgba(0, 0, 0, 0)) 1 100%;
+  border-image:
+    linear-gradient(to top, #A7D7F9, rgba(0, 0, 0, 0)) 1 100%;
+}*/
+
+/*.scatter {
+  background:
+    linear-gradient(
+    to bottom,
+    #f6f6f6 10%, white);
+}*/

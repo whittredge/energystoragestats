@@ -13,7 +13,8 @@
 
 
 
-<div class="center jumbotron">
+<!-- <div class="center jumbotron"> -->
+<div class="jumbotron">
   <div class="container">
     <div class="col-md-12">
       <h1>Energy Storage Stats</h1>
@@ -66,7 +67,7 @@ var tip = d3.tip()
   .attr('class', 'd3-tip')
   .offset([-10, 0])
   .html(function(d) {
-    return "E = " + d.volEnergyDen + " Wh/cm-3<br> </br>P = " +d.volPowerDen + " W/cm-3<br> </br>" + d.citationShort + "<br> </br>" + d.deviceType;
+    return "E = " + d.volEnergyDen + " Wh/cm3<br> </br>P = " +d.volPowerDen + " W/cm3<br> </br>" + d.citationShort + "<br> </br>" + d.deviceType;
   })
   //
 
@@ -74,7 +75,12 @@ var svg = d3.select("div.scatter").append("svg")
     .attr("width", width + margin.left + margin.right)
     .attr("height", height + margin.top + margin.bottom)
     .style("background", "white")
+    // .style("background", "linear-gradient(to bottom left, #f6f6f6, white 10%)")
+    // .style("background", "linear-gradient(to bottom, #f6f6f6, white 10%)")
     .style("outline", "thin solid #A7D7F9")
+    // .style("outline-width", "1px")
+    // .style("outline-style", "solid")
+    // .style("outline-image", "linear-gradient(to top, #A7D7F9, white;")
   .append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
@@ -135,7 +141,10 @@ d3.tsv("assets/ESSdataV1.tsv", function(error, data) {
       .attr("cy", function(d) { return y(d.volEnergyDen); })
       .style("fill", function(d) { return color(d.deviceType); })
       // http://bl.ocks.org/Caged/6476579 //
-      .on('mouseover', tip.show)
+      .on('mouseover', 
+        // d3.select("circle.dot")
+        //   .attr("r", 10),
+        tip.show)
       .on('mouseout', tip.hide)
       //
       .on('click', function(d,i) { var text = d3.select("div.scatter").append("div").append("text")
@@ -145,8 +154,8 @@ d3.tsv("assets/ESSdataV1.tsv", function(error, data) {
         .attr("y", 0)
         .text(function() { return d.citationLong; })
         })
-    .append("svg:title")
-      .text(function(d, i) { return d.deviceType; });
+    // .append("svg:title")
+    //   .text(function(d, i) { return d.deviceType; });
 
   var legend = svg.selectAll(".legend")
       .data(color.domain())
@@ -196,14 +205,14 @@ var instructions = d3.select("div.scatter")
 <div class="center jumbotron">
   <div class="container">
     <div class="col-md-6">
-      <h2>
+      <h3>
         The goal of EnergyStorageStats is to collect and interactively display data on a broad range of energy storage devices.  We've started with a volumetric Ragone plot because energy and power densities are widely reported, and volume (as opposed to mass) dominates the density metric at the small and large ends of device sizes.  More data is on the way.
-      </h2>
+      </h3>
     </div>
     <div class="col-md-6">
-      <h2>
+      <h3>
         A gravimetric Ragone plot is coming next.  Ultimately, we aim to present data on as many devices as possible, linking available metrics of a device throughout customizable, interactive plots.  The best way to make sure your device is included here is to <%= link_to "submit data", submit_path %>.
-      </h2>
+      </h3>
     </div>
   </div>
   <div class="container">
