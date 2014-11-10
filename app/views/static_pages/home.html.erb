@@ -91,7 +91,7 @@ svg.call(tip);
 // var s = d3.scale.log().domain([0.001, 10]).range([0.001, 10]);
 
 // d3.tsv("assets/sampleESSdata.tsv", function(error, data) {
-d3.tsv("assets/ESSdataV1.tsv", function(error, data) {  
+d3.json("assets/ESSdataValpha2.json", function(error, data) {  
   data.forEach(function(d) {
     d.volEnergyDen = +d.volEnergyDen;
     d.volPowerDen = +d.volPowerDen;
@@ -197,6 +197,51 @@ var instructions = d3.select("div.scatter")
     .attr("y", 100)
     .style("font-style", "italic")
     .text("Click data points to add their citations here.");
+
+
+
+//the below is from https://www.biostat.wisc.edu/~kbroman/D3/json_scatter/
+// function draw(data) {
+//   "use strict";
+
+//   var w=800, h=400;
+//   var pad = {left: 20, right: 20, top: 20, bottom: 20};
+
+//   var svg = d3.select("body")
+//                 .append("svg")
+//                   .attr("height", h)
+//                   .attr("width", w);
+
+//   svg.append("rect")
+//        .attr("x", pad.left).attr("y",pad.top)
+//        .attr("width", w-(pad.left+pad.right))
+//        .attr("height",h-(pad.top+pad.bottom))
+//        .attr("stroke", "black")
+//        .attr("fill", "rgb(230,230,230)");
+
+//   var xMin = d3.min(data, function(d) { return Number(d.volPowerDen[0]); });
+//   var xMax = d3.max(data, function(d) { return Number(d.volPowerDen[0]); });
+//   var yMin = d3.min(data, function(d) { return Number(d.volEnergyDen[0]); });
+//   var yMax = d3.max(data, function(d) { return Number(d.volEnergyDen[0]); });
+
+//   var xScale = d3.scale.linear().domain([xMin, xMax]).range([pad.left*2, w-pad.right*2]);
+//   var yScale = d3.scale.linear().domain([yMin, yMax]).range([h-pad.bottom*2, pad.top*2]);
+
+//   var circles = svg.selectAll("circle")
+//                       .data(data)
+//                       .enter()
+//                         .append("circle")
+//                           .attr("cx", function(d) { return xScale(d.volPowerDen[0]); })
+//                           .attr("cy", function(d) { return yScale(d.volEnergyDen[0]); })
+//                           .attr("r", 5)
+//                           .attr("opacity", 0.8)
+//                           // .attr("fill", function(d) { return ['blue', 'green', 'red'][d.z-1]; })
+//                           .attr("fill", "green")
+//                         .on("mouseover", function() { d3.select(this).attr("r", 10) })
+//                         .on("mouseout", function() { d3.select(this).attr("r", 5) });
+// }
+
+  // d3.json("assets/ESSdataValpha2.json", draw);
 </script>
 
 <% end %>
