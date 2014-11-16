@@ -104,12 +104,12 @@ p {
   /*font-variant: small-caps;*/
   /*font-style: italic;*/
   color: black;
+/*  text-shadow: 1px 2px 2px white;*/
   /*letter-spacing: -1px;*/
   padding-top: 8px;
-/*  &:hover {
-  	text-shadow: -0.5px 0.5px 1px white;
+  &:hover {
   	text-decoration:none;
-  }*/
+  }
 }
 
 .navbar {
@@ -120,7 +120,7 @@ p {
     background-image:
       linear-gradient(
         to top,
-        #f6f6f6, white);
+        #f6f6f6 50%, white);
     /*background-color: #f6f6f6;*/
     border-color: #A7D7F9;
 }
