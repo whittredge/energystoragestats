@@ -8,6 +8,12 @@ $gray-medium-light: #eaeaea;
 
 /* universal */
 
+* {
+ margin: 0;
+ padding-left: 0;
+ padding-right: 0;
+}
+
 html {
   overflow-y: scroll;
 }
@@ -15,7 +21,6 @@ html {
 body {
   padding-top: 60px;
   background-color: #f6f6f6;
-  /*font-family: Chicago;*/
 }
 
 section {
@@ -31,6 +36,10 @@ textarea {
   h1 {
   	margin-bottom: 10px;
   }
+}
+
+.plotsContainer1 {
+  padding-bottom: 500px;
 }
 
 
@@ -95,6 +104,14 @@ p {
   line-height: 1.7em;
 }
 
+.container {
+  padding: 0;
+}
+
+.volRagone {
+  padding: 0;
+}
+
 #logo {
   float: left;
   margin-right: 0px;
@@ -112,6 +129,29 @@ p {
   }
 }
 
+#bigESS {
+/*  background-image:
+    linear-gradient(to bottom, #A7D7F9 10%, transparent 90%);
+*/  /*background: #A7D7F9;*/
+  /*text-shadow: 3px 0px 2px #dbeffc;*/
+  /*border-width: 1px;*/
+  /*border-style: solid;*/
+  /*border-image: linear-gradient(to bottom, #A7D7F9 10%, white 90%)*/
+  border-right: 1px solid;
+  border-left: 0px;
+  /*border-style: solid;*/
+/*  -webkit-border-image: 
+    -webkit-gradient(linear, 0 0, 0 100%, from(#A7D7F9), to(rgba(0, 0, 0, 0))) 1 100%;
+  -webkit-border-image: 
+    -webkit-linear-gradient(#A7D7F9, rgba(0, 0, 0, 0)) 1 100%;
+  -moz-border-image:
+    -moz-linear-gradient(#A7D7F9, rgba(0, 0, 0, 0)) 1 100%;    
+  -o-border-image:
+    -o-linear-gradient(#A7D7F9, rgba(0, 0, 0, 0)) 1 100%;*/
+  border-image:
+    linear-gradient(to bottom, transparent, #A7D7F9, transparent) 1 100%;
+}
+
 .navbar {
   height: 10px;
 }
@@ -120,7 +160,7 @@ p {
     background-image:
       linear-gradient(
         to top,
-        #f6f6f6 50%, white);
+        #f6f6f6 10%, white 90%);
     /*background-color: #f6f6f6;*/
     border-color: #A7D7F9;
 }
