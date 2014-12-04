@@ -65,6 +65,11 @@ function makeVolRagone(data, screenWidth) {
       .attr("class", "tooltip")       
       .style("opacity", 0);
 
+  // Set div padding to zero:
+  d3.select("div.volRagone")
+    .style("padding-left", 0)
+    .style("padding-right", 0);
+
   // http://bl.ocks.org/Caged/6476579 //
   var tip = d3.tip()
     .attr('class', 'd3-tip')
@@ -118,21 +123,30 @@ svg.append("g")
     .style("text-anchor", "end")
     .text("Volumetric Energy Density (Wh/cm3)");
 
+
+
 svg.selectAll(".dot")
     .data(data)
   .enter().append("circle")
-    .attr("class", "dot")
+    .attr("class", function(d, i) { return "pt" + i; })
     .attr("r", 5)
     .attr("cx", function(d) { return x(d.volPowerDen); })
     .attr("cy", function(d) { return y(d.volEnergyDen); })
     .style("fill", function(d) { return color(d.deviceType); })
+    // .on("mouseover",  function(d, i) { return svg.selectAll("circle.pt" + i).attr("r", 10);} )
+    // .on("mouseout", function(d, i) { return svg.selectAll("circle.pt" + i).attr("r", 5);} )
     // http://bl.ocks.org/Caged/6476579 //
-    .on('mouseover', 
-      // d3.select("circle.dot")
-      //   .attr("r", 10),
-      tip.show)
-    .on('mouseout', tip.hide)
+    // .on('mouseover', tip.show)
+    // .on('mouseout', tip.hide)
     //
+    .on({
+      mouseenter: function(d, i) {
+        return d3.selectAll("circle.pt" + i).attr("r", 10);
+      }, mouseover: tip.show
+      , mouseleave: function(d, i) {
+        return d3.selectAll("circle.pt" + i).attr("r", 5);
+      }, mouseout: tip.hide
+    })
     .on('click', function(d,i) { var text = d3.select("div.volRagone").append("div").append("text")
       .data(data)
       .style("fill", "black")
@@ -211,7 +225,7 @@ function makeVolRagoneTwo(data, screenWidth) {
   
   // d3.select("#plotsContainer")
   //  .append("div")
-  //  .attr("class", "volRagone");
+  //  .attr("class", "volRagoneTwo");
 
   if (screenWidth>=1200) {
     var margin = {top: 100, right: 30, bottom: 45, left: 60},
@@ -259,6 +273,11 @@ function makeVolRagoneTwo(data, screenWidth) {
       .attr("class", "tooltip")       
       .style("opacity", 0);
 
+  // Set div padding to zero:
+  d3.select("div.volRagoneTwo")
+    .style("padding-left", 0)
+    .style("padding-right", 0);
+
   // http://bl.ocks.org/Caged/6476579 //
   var tip = d3.tip()
     .attr('class', 'd3-tip')
@@ -268,11 +287,6 @@ function makeVolRagoneTwo(data, screenWidth) {
       " W/cm3<br> </br>" + d.citationShort + "<br> </br>" + d.deviceType;
     });
     //
-
-  // Set div padding to zero:
-  d3.select("div.volRagoneTwo")
-    .style("padding-left", 0)
-    .style("padding-right", 0);
 
   var svg = d3.select("div.volRagoneTwo").append("svg")
       .attr("width", width + margin.left + margin.right)
@@ -317,21 +331,30 @@ svg.append("g")
     .style("text-anchor", "end")
     .text("Volumetric Energy Density (Wh/cm3)");
 
+
+
 svg.selectAll(".dot")
     .data(data)
   .enter().append("circle")
-    .attr("class", "dot")
+    .attr("class", function(d, i) { return "pt" + i; })
     .attr("r", 5)
     .attr("cx", function(d) { return x(d.volPowerDen); })
     .attr("cy", function(d) { return y(d.volEnergyDen); })
     .style("fill", function(d) { return color(d.deviceType); })
+    // .on("mouseover",  function(d, i) { return svg.selectAll("circle.pt" + i).attr("r", 10);} )
+    // .on("mouseout", function(d, i) { return svg.selectAll("circle.pt" + i).attr("r", 5);} )
     // http://bl.ocks.org/Caged/6476579 //
-    .on('mouseover', 
-      // d3.select("circle.dot")
-      //   .attr("r", 10),
-      tip.show)
-    .on('mouseout', tip.hide)
+    // .on('mouseover', tip.show)
+    // .on('mouseout', tip.hide)
     //
+    .on({
+      mouseenter: function(d, i) {
+        return svg.selectAll("circle.pt" + i).attr("r", 10);
+      }, mouseover: tip.show
+      , mouseleave: function(d, i) {
+        return svg.selectAll("circle.pt" + i).attr("r", 5);
+      }, mouseout: tip.hide
+    })
     .on('click', function(d,i) { var text = d3.select("div.volRagoneTwo").append("div").append("text")
       .data(data)
       .style("fill", "black")
@@ -367,9 +390,10 @@ svg.append("text")
     .attr("text-anchor", "start")
     .style("font-size", "2em")
     .style("font-family", "Georgia")
-    .text("Volumetric Ragone Chart Two");
-
+    .text("Volumetric Ragone Chart");
+    
 };
+
 
 d3.select(window).on("resize", resize);
 

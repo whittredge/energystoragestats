@@ -28,6 +28,10 @@
   stroke: #000;
 }
 
+circle {
+  stroke: #000;
+}
+
 .dot:hover {
   /*stroke: #17BECF;*/
   stroke: #fff;
