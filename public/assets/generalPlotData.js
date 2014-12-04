@@ -14,10 +14,6 @@ d3.json("assets/ESSdataValpha2.json", function(error, json) {
 });
 
 function makeVolRagone(data, screenWidth) {
-  
-  // d3.select("#plotsContainer")
-  // 	.append("div")
-  // 	.attr("class", "volRagone");
 
   if (screenWidth>=1200) {
   	var margin = {top: 100, right: 30, bottom: 45, left: 60},
@@ -39,14 +35,8 @@ function makeVolRagone(data, screenWidth) {
       height = 255 - margin.top - margin.bottom;
   }
 
-  // var margin = {top: 110, right: 80, bottom: 68, left: 120},
-  //     width = 900 - margin.left - margin.right,
-  //     height = 510 - margin.top - margin.bottom;
-
   var x = d3.scale.log()
       .range([0, width]);
-
-  // console.log(x);
 
   var y = d3.scale.log()
       .range([height, 0]);
@@ -133,12 +123,6 @@ svg.selectAll(".dot")
     .attr("cx", function(d) { return x(d.volPowerDen); })
     .attr("cy", function(d) { return y(d.volEnergyDen); })
     .style("fill", function(d) { return color(d.deviceType); })
-    // .on("mouseover",  function(d, i) { return svg.selectAll("circle.pt" + i).attr("r", 10);} )
-    // .on("mouseout", function(d, i) { return svg.selectAll("circle.pt" + i).attr("r", 5);} )
-    // http://bl.ocks.org/Caged/6476579 //
-    // .on('mouseover', tip.show)
-    // .on('mouseout', tip.hide)
-    //
     .on({
       mouseenter: function(d, i) {
         return d3.selectAll("circle.pt" + i).attr("r", 10);
@@ -154,27 +138,6 @@ svg.selectAll(".dot")
       .attr("y", 0)
       .text(function() { return d.citationLong; })
       })
-  // .append("svg:title")
-  //   .text(function(d, i) { return d.deviceType; });
-
-// var legend = svg.selectAll(".legend")
-//     .data(color.domain())
-//   .enter().append("g")
-//     .attr("class", "legend")
-//     .attr("transform", function(d, i) { return "translate(0," + i * 20 + ")"; });
-
-// legend.append("rect")
-//     .attr("x", width + margin.right - 36)
-//     .attr("width", 18)
-//     .attr("height", 18)
-//     .style("fill", color);
-
-// legend.append("text")
-//     .attr("x", width + margin.right - 42)
-//     .attr("y", 9)
-//     .attr("dy", ".35em")
-//     .style("text-anchor", "end")
-//     .text(function(d) { return d; });
 
 svg.append("text")
     .attr("x", 0)
@@ -222,10 +185,6 @@ function makeLegend(data, screenWidth) {
 };
 
 function makeVolRagoneTwo(data, screenWidth) {
-  
-  // d3.select("#plotsContainer")
-  //  .append("div")
-  //  .attr("class", "volRagoneTwo");
 
   if (screenWidth>=1200) {
     var margin = {top: 100, right: 30, bottom: 45, left: 60},
@@ -247,14 +206,8 @@ function makeVolRagoneTwo(data, screenWidth) {
       height = 255 - margin.top - margin.bottom;
   }
 
-  // var margin = {top: 110, right: 80, bottom: 68, left: 120},
-  //     width = 900 - margin.left - margin.right,
-  //     height = 510 - margin.top - margin.bottom;
-
   var x = d3.scale.log()
       .range([0, width]);
-
-  // console.log(x);
 
   var y = d3.scale.log()
       .range([height, 0]);
@@ -341,12 +294,6 @@ svg.selectAll(".dot")
     .attr("cx", function(d) { return x(d.volPowerDen); })
     .attr("cy", function(d) { return y(d.volEnergyDen); })
     .style("fill", function(d) { return color(d.deviceType); })
-    // .on("mouseover",  function(d, i) { return svg.selectAll("circle.pt" + i).attr("r", 10);} )
-    // .on("mouseout", function(d, i) { return svg.selectAll("circle.pt" + i).attr("r", 5);} )
-    // http://bl.ocks.org/Caged/6476579 //
-    // .on('mouseover', tip.show)
-    // .on('mouseout', tip.hide)
-    //
     .on({
       mouseenter: function(d, i) {
         return svg.selectAll("circle.pt" + i).attr("r", 10);
@@ -362,27 +309,6 @@ svg.selectAll(".dot")
       .attr("y", 0)
       .text(function() { return d.citationLong; })
       })
-  // .append("svg:title")
-  //   .text(function(d, i) { return d.deviceType; });
-
-// var legend = svg.selectAll(".legend")
-//     .data(color.domain())
-//   .enter().append("g")
-//     .attr("class", "legend")
-//     .attr("transform", function(d, i) { return "translate(0," + i * 20 + ")"; });
-
-// legend.append("rect")
-//     .attr("x", width + margin.right - 36)
-//     .attr("width", 18)
-//     .attr("height", 18)
-//     .style("fill", color);
-
-// legend.append("text")
-//     .attr("x", width + margin.right - 42)
-//     .attr("y", 9)
-//     .attr("dy", ".35em")
-//     .style("text-anchor", "end")
-//     .text(function(d) { return d; });
 
 svg.append("text")
     .attr("x", 0)
