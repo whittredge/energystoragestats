@@ -1,0 +1,34 @@
+[
+	{"doi" : "10.1038/ncomms5554",
+	"title" : "Holey graphene frameworks for highly efficient capacitive energy storage",
+	"gravEnergyDen" : [35, "Wh*kg-1"],
+	"volEnergyDen" : [49, "Wh*l-1"],
+	"gravCap" : [298, "F*g-1"],
+	"volCap" : [212, "F*cm-3"],
+	"volPowerDen" : [10, "example"],
+	"authors" : "Xu, Yuxi, Zhaoyang Lin, Xing Zhong, Xiaoqing Huang, Nathan O. Weiss, Yu Huang, and Xiangfeng Duan.",
+	"journal" : "Nature Communications",
+	"journalNumbers" : "5",
+	"year" : "2014-08-08",
+	"x" : 20,
+	"y" : 20,
+	"z" : 1
+	},
+
+	{"doi": "11.1111/example",
+	"title": "Example title",
+	"gravEnergyDen": [53, "Wh*kg-1"],
+	"volEnergyDen": [94, "Wh*l-1"],
+	"gravCap": [892, "F*g-1"],
+	"volCap": [121, "F*cm-3"],
+	"volPowerDen": [100, "example"],
+	"authors": "Example, Paul B.",
+	"journal": "Example Journal",
+	"journalNumbers": "1",
+	"year": "2014-10-10",
+	"doi": "11.1111/example",
+	"x" : 10,
+	"y" : 10,
+	"z" : 2
+	}
+]

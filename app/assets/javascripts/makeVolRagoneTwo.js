@@ -1,31 +1,27 @@
-// function makeVolRagone(data, screenWidth) {
-  
-  if (screenWidth>=1200) {
-  	var margin = {top: 110, right: 80, bottom: 68, left: 120},
-      width = 900 - margin.left - margin.right,
-      height = 510 - margin.top - margin.bottom;
-  } else if (screenWidth<1200 && screenWidth>=992) {
-  	var margin = {top: 110, right: 80, bottom: 68, left: 120},
-      width = 900 - margin.left - margin.right,
-      height = 510 - margin.top - margin.bottom;
-  } else if (screenWidth<992 && screenWidth>=768) {
-  	var margin = {top: 55, right: 40, bottom: 34, left: 60},
-      width = 450 - margin.left - margin.right,
-      height = 255 - margin.top - margin.bottom;
-  } else if (screenWidth<768) {
-  	var margin = {top: 55, right: 40, bottom: 34, left: 60},
-      width = screenWidth - margin.left - margin.right,
-      height = 255 - margin.top - margin.bottom;
-  };
+function makeVolRagoneTwo(data, screenWidth) {
 
-  // var margin = {top: 110, right: 80, bottom: 68, left: 120},
-  //     width = 900 - margin.left - margin.right,
-  //     height = 510 - margin.top - margin.bottom;
+  if (screenWidth>=1200) {
+    var margin = {top: 100, right: 30, bottom: 45, left: 60},
+      width = 490 - margin.left - margin.right,
+      // height = 490 - margin.top - margin.bottom;
+      height = width;
+  } else if (screenWidth<1200 && screenWidth>=992) {
+    var margin = {top: 100, right: 30, bottom: 45, left: 60},
+      width = 403 - margin.left - margin.right,
+      // height = 406 - margin.top - margin.bottom;
+      height = width;
+  } else if (screenWidth<992 && screenWidth>=768) {
+    var margin = {top: 100, right: 30, bottom: 45, left: 60},
+      width = 490 - margin.left - margin.right,
+      height = 490 - margin.top - margin.bottom;
+  } else if (screenWidth<768) {
+    var margin = {top: 100, right: 30, bottom: 45, left: 60},
+      width = screenWidth - 64 - margin.left - margin.right,
+      height = 255 - margin.top - margin.bottom;
+  }
 
   var x = d3.scale.log()
       .range([0, width]);
-
-  // console.log(x);
 
   var y = d3.scale.log()
       .range([height, 0]);
@@ -40,9 +36,10 @@
       .scale(y)
       .orient("left");
 
-  var tooltip = d3.select(".volRagone").append("div") 
-      .attr("class", "tooltip")       
-      .style("opacity", 0);
+  // Set div padding to zero:
+  d3.select("div.volRagoneTwo")
+    .style("padding-left", 0)
+    .style("padding-right", 0);
 
   // http://bl.ocks.org/Caged/6476579 //
   var tip = d3.tip()
@@ -51,10 +48,10 @@
     .html(function(d) {
       return "E = " + d.volEnergyDen + " Wh/cm3<br> </br>P = " +d.volPowerDen + 
       " W/cm3<br> </br>" + d.citationShort + "<br> </br>" + d.deviceType;
-    })
+    });
     //
 
-  var svg = d3.select("div.volRagone").append("svg")
+  var svg = d3.select("div.volRagoneTwo").append("svg")
       .attr("width", width + margin.left + margin.right)
       .attr("height", height + margin.top + margin.bottom)
       .style("background", "white")
@@ -74,7 +71,7 @@ svg.append("g")
     .attr("transform", "translate(0," + height + ")")
     .call(xAxis
       .tickFormat(function (d) {
-        return x.tickFormat(4,d3.format(",g"))(d)
+        return x.tickFormat(6,d3.format(",g"))(d)
       }))
   .append("text")
     .attr("class", "label")
@@ -97,49 +94,31 @@ svg.append("g")
     .style("text-anchor", "end")
     .text("Volumetric Energy Density (Wh/cm3)");
 
+
+
 svg.selectAll(".dot")
     .data(data)
   .enter().append("circle")
-    .attr("class", "dot")
+    .attr("class", function(d, i) { return "pt" + i; })
     .attr("r", 5)
     .attr("cx", function(d) { return x(d.volPowerDen); })
     .attr("cy", function(d) { return y(d.volEnergyDen); })
     .style("fill", function(d) { return color(d.deviceType); })
-    // http://bl.ocks.org/Caged/6476579 //
-    .on('mouseover', 
-      // d3.select("circle.dot")
-      //   .attr("r", 10),
-      tip.show)
-    .on('mouseout', tip.hide)
-    //
-    .on('click', function(d,i) { var text = d3.select("div.volRagone").append("div").append("text")
+    .on({
+      mouseenter: function(d, i) {
+        return d3.selectAll("circle.pt" + i).attr("r", 10);
+      }, mouseover: tip.show
+      , mouseleave: function(d, i) {
+        return d3.selectAll("circle.pt" + i).attr("r", 5);
+      }, mouseout: tip.hide
+    })
+    .on('click', function(d,i) { var text = d3.select("div.volRagoneTwo").append("div").append("text")
       .data(data)
       .style("fill", "black")
       .attr("x", 0)
       .attr("y", 0)
       .text(function() { return d.citationLong; })
       })
-  // .append("svg:title")
-  //   .text(function(d, i) { return d.deviceType; });
-
-var legend = svg.selectAll(".legend")
-    .data(color.domain())
-  .enter().append("g")
-    .attr("class", "legend")
-    .attr("transform", function(d, i) { return "translate(0," + i * 20 + ")"; });
-
-legend.append("rect")
-    .attr("x", width + margin.right - 36)
-    .attr("width", 18)
-    .attr("height", 18)
-    .style("fill", color);
-
-legend.append("text")
-    .attr("x", width + margin.right - 42)
-    .attr("y", 9)
-    .attr("dy", ".35em")
-    .style("text-anchor", "end")
-    .text(function(d) { return d; });
 
 svg.append("text")
     .attr("x", 0)
@@ -147,6 +126,6 @@ svg.append("text")
     .attr("text-anchor", "start")
     .style("font-size", "2em")
     .style("font-family", "Georgia")
-    .text("Volumetric Ragone Chart");
-
+    .text("Volumetric Ragone Chart2");
+    
 };

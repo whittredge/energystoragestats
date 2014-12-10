@@ -12,6 +12,8 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require jquery.sticky-kit
+//= require jquery.sticky
 //= require bootstrap
 //= require turbolinks
 //= require d3
