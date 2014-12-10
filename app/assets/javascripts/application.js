@@ -17,4 +17,8 @@
 //= require bootstrap
 //= require turbolinks
 //= require d3
+//= require generalPlotData
+//= require makeLegend
+//= require makeVolRagone
+//= require makeVolRagoneTwo
 //= require_tree .
