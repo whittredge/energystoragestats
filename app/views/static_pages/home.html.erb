@@ -32,7 +32,9 @@
 
 <div class="container" id="plotsContainer1">
   <div class="legendContainer col-md-2">
-    <div class="legend" style="z-index:100;"></div>
+    <div class="spacer">
+      <div class="legend" style="z-index:100;"></div>
+    </div>
   </div>
   <div class="volRagone col-md-5"></div>
   <div class="volRagoneTwo col-md-5"></div>
@@ -51,16 +53,16 @@
 <% content_for :javascript do %>
   <script src="assets/caged.d3.tip.js" type='text/javascript'></script>
   <!--<script src="assets/generalPlotData.js" type='text/javascript'></script> -->
-  <script src="assets/stickyLegend.js" type='text/javascript'></script>
+  <!--<script src="assets/stickyLegend.js" type='text/javascript'></script> -->
   <script>
-  //   $(document).ready(function($){
-  //     $("#legend").stick_in_parent();
-  //   });
+    $(document).ready(function($){
+      $(".legend").stick_in_parent({parent: ".legendContainer", offset_top: 200, spacer: ".spacer"});
+    });
   </script>
   <script>
-    $(window).load(function(){
-      $(".legend").sticky({ topSpacing: 60});
-    });
+    // $(window).load(function(){
+    //   $(".legend").sticky({ topSpacing: 60, className: "nowStuck", getWidthFrom: ".legendContainer"});
+    // });
   </script>
 <% end %>
 

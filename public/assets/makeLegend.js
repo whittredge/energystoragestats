@@ -3,7 +3,10 @@ function makeLegend(data, screenWidth) {
 
   var width = 160;
 
-  var height = 458;
+  var height = 160;
+
+  var color = d3.scale.category10()
+      .domain(function(data) { return data.deviceType; });
 
   d3.select(".legend")
     .style("padding-left", 0)
@@ -23,18 +26,22 @@ function makeLegend(data, screenWidth) {
     .style("background", "white")
     .style("outline", "thin solid #A7D7F9")
 
-svg.selectAll(".rect")
-    .data(data)
-  .enter().append("rect")
-    .attr("x", width)
-    .attr("width", 18)
-    .attr("height", 18)
-    .style("fill", color);
+  legend.selectAll(".legend")
+      .data(data)
+    .enter().append("g")
+      .attr("class", "legend")
+      .attr("transform", function(d, i) { return "translate(0," + i * 20 + ")"; });
+
+  legend.append("rect")
+      .attr("x", width - 18)
+      .attr("width", 18)
+      .attr("height", 18)
+      .style("fill", color);
 
   legend.append("text")
-    .attr("x", width)
+    .attr("x", width - 24)
     .attr("y", 9)
     .attr("dy", ".35em")
     .style("text-anchor", "end")
-    .text(function(d) { return d.deviceType; });
+    .text(function(d,i) { return data[i].deviceType; });
 };
